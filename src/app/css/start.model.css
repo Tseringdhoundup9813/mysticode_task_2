@@ -1,0 +1,74 @@
+
+.start-model-main-wrapper{
+    width:25%;
+    background-color: rgb(255, 230, 184);
+    position: absolute;
+    top:40%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+    padding:20px;
+    border-radius:3px;
+}
+.start-model-main-wrapper > input{
+    width:100%;
+    padding:5px;
+    background-color: transparent;
+    border:1px solid rgb(211, 141, 10);
+    border-radius:4px;
+    color:rgb(131, 85, 0);
+
+}
+
+.start-model-main-wrapper > button{
+    border:none;
+    background-color: orange;
+    padding:5px;
+    border-radius:3px;
+    color:white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.start-model-main-wrapper > button:disabled{
+
+    background-color: rgb(255, 218, 149);
+ 
+}
+.start-model-main-wrapper >button:hover{
+    background-color: rgb(221, 146, 7);
+    
+}
+.start-model-main-wrapper > label{
+    font-size: 12px;
+    font-weight: bold;
+    margin-top:5px;
+    color:rgb(131, 85, 0);
+}
+.difficulty-leve-main-container{
+    margin:10px 0px;
+}
+.difficulty-leve-main-container > select{
+    width:100%;
+    padding:5px;
+    background-color:rgb(255, 210, 126);
+    border:none;
+    font-weight: bold;
+    color:rgb(131, 85, 0);
+    margin-bottom:10px;
+
+}
+.difficulty-leve-main-container div > ul{
+    padding:5px 15px;
+}
+.difficulty-leve-main-container  li{
+    font-size:13px;
+    font-weight:500;
+    color:rgb(131, 85, 0);
+
+
+}
+.bet-error-message{
+    font-size:12px;
+    color:red;
+}

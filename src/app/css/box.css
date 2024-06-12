@@ -1,0 +1,67 @@
+.box-parent-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.box-column-container{
+    display: flex;
+    gap:10px;
+}
+.box-row-container{
+    display:flex;
+    background-color:rgb(228, 228, 228);
+    width:50px;
+    height:50px;
+    justify-content: center;
+    align-items: center;
+    border-radius:4px;
+    margin:5px;
+    color:gray;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/*  */
+.highlight{
+    background-color: beige;
+}
+.computerselect{
+    background-color: tomato;
+    color:white;
+}
+.matchHighlight{
+    background-color:lightgreen !important;
+    border:2px solid rgb(61, 61, 61);
+}
+
+/* game loose and win section */
+.game-loose-and-win-container{
+    width:100%;
+    height:15vh;
+    margin-bottom:10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.game-loose-and-win-container > h1{
+    padding:5px;
+    font-size:20px;
+    text-transform:capitalize;
+}
+.game-loose-and-win-container button{
+    border:none;
+    padding:7px;
+    font-size:11px;
+    background-color: rgb(74, 224, 99);
+    font-weight: bold;
+    color:white;
+    border-radius:3px;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+.game-loose-and-win-container button:hover{
+    background-color: rgb(59, 218, 85);
+
+}
+/* --------------------------- */
