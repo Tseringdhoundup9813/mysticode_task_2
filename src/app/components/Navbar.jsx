@@ -26,7 +26,7 @@ function Navbar() {
  function startGameHandler(){
       // when box select reach certain point show start model component
         console.log(gameState.selectCount);
-        if(gameState.selectCount===0){
+        if(gameState.selectCount===0 &&(!gameState.win&&!gameState.loose)){
             setStartModelActive(true);
         }
  }
