@@ -1,23 +1,16 @@
 
 .navbar-main-container{
-    width:45%;
-    margin:0px auto;
     padding:20px;
     min-height:20vh;
-    /* border:1px solid gray; */
+
 
 }
 .navbar-main-container > ul{
     width:100%;
     display: flex;
-    justify-content:space-between;
+    justify-content:center;
     align-items: center;
     gap:20px;
-}
-.navbar-main-container > ul>div{
-    display: flex;
-    gap:20px;
-
 }
 
 .navbar-main-container > ul li{
@@ -30,32 +23,68 @@
     color:rgb(145, 145, 145);
 }
 .navbar-main-container > ul li > span{
-     font-weight:900;
+     font-weight:700;
      font-size:12px;
      margin-right:5px;
-     color: black;
+     color: rgb(100, 100, 100) !important;
 
 
 }
-.navbar-main-container > ul a{
+
+.start-game-button{
+    background-color:rgb(91, 207, 97) !important;
+    color:white !important;
+    cursor: pointer;
+}
+.start-game-button:hover{
+    background-color:rgb(51, 177, 58) !important;
+
+}
+.logout-button{
+    background-color: tomato !important;
+    cursor: pointer;
+
+}
+.logout-button:hover{
+    background-color: rgb(253, 61, 27) !important;
+
+}
+.logout-button >a{
+    color:white !important;
     text-decoration: none;
-    background-color: rgb(255, 111, 111);
-    padding:8px;
-    font-size: 12px;
-    border-radius: 3px;
-    color:rgb(255, 255, 255);
-    font-weight:800;
-    letter-spacing:1px;   
 }
-.game-stats-container{
-    display: flex;
-    /* flex-direction: column; */
+.highlight-start-button{
+    transition:all 0.4s ease-out;
+    background-color:rgb(20, 255, 20) !important;
+
 }
-.game-stats-container> p{
-    font-weight:600;
-    background-color: rgb(243, 243, 243);
-    padding:10px;
-    border-radius: 3px;
-    font-size: 12px;
-    color:rgb(145, 145, 145);
+
+
+/* selection reach max warn */
+.selectMaxReachAnimiate{
+
+    animation-name:beatWarn;
+    animation-duration:0.5s;
+    animation-iteration-count:1;
+    animation-direction:alternate;
+    transition:all 0.2s ease;
+
+}
+
+/*  */
+@keyframes beatWarn{
+	0%{
+        opacity:1;
+        transform:scale(1);   
+    }
+	100% {
+        opacity:0.1;
+        transform:scale(1.2);
+        background-color: rgb(255, 79, 73);
+        color:white;
+	}
+	75% {
+		opacity: 1;
+        transform:scale(1);
+	}
 }

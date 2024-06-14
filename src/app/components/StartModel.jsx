@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import "../css/start.model.css"
 import DifficultyLevel from './DifficultyLevel'
 import { useDispatch } from 'react-redux';
-import { selectRandomFunc,startFunc } from '../features/gamelogicSlice';
+import { selectRandomFunc,startFunc } from '../features/gameLogicSlice.js';
 import { pointCriteria } from '../../utils/constants';
 function startModel({setStartModelActive}) {
     const dispatch = useDispatch();
@@ -11,7 +11,7 @@ function startModel({setStartModelActive}) {
 
     
     function startHandler(){
-        if(betPoint < pointCriteria.max && betPoint > pointCriteria.min-1){
+        if(betPoint <= pointCriteria.max && betPoint > pointCriteria.min-1){
             setStartModelActive(false);
             dispatch(startFunc({bet:betPoint}))
             setTimeout(function(){
@@ -25,7 +25,7 @@ function startModel({setStartModelActive}) {
     }
   return (
     <div className='start-model-main-wrapper'>
-        <button onClick={startHandler}>Start Game</button>
+        <button onClick={startHandler}>Let check your luck</button>
         <label>Bet: min 1 max 10</label>
         <input type="number" 
             value={betPoint}

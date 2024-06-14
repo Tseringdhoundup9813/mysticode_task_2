@@ -1,6 +1,6 @@
 
 export const selectLimit=10
-export const boxsMetaData ={
+export const boxesMetaData ={
     row:5,
     column:8,
     total:40,

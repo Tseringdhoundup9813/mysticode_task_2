@@ -1,29 +1,36 @@
 import React, { useState } from 'react'
+// global login page css
 import "../css/login.css"
-import { loginValidate } from '../../utils/validate';
-import { loginServer } from '../../utils/server';
+
+// auth
+import { validateFunc } from '../../utils/auth/validate.js';
+import { loginServer } from '../../utils/auth/server.js';
+// react router
 import { useNavigate } from 'react-router-dom';
-import { gameInitializeFunc } from '../features/gamelogicSlice';
+
+// custom tools
+import { gameInitializeFunc } from '../features/gameLogicSlice.js';
 import { useDispatch } from 'react-redux';
-import { setToLocalStorage } from '../../utils/localstorage';
+import { setToLocalStorage } from '../../utils/localStorage.js';
+
+
 function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const[user,setUser] = useState({email:'',password:''})
     const[validate,setValidate] = useState()
     const [isLoading,setIsLoading] = useState(false);
-    const [data,setData] = useState();
     const[error,setError] = useState();
     const[isSuccess,setIsSuccess] = useState(false);
 
     async function submitHandler(event){
     event.preventDefault();
     // set validation object
-    setValidate(loginValidate(user.email,user.password))
+    setValidate(validateFunc(user.email,user.password))
     setError();
     // get validation object
-    const validation = loginValidate(user.email,user.password)
-    if(!validation.emailRequired &&!validation.passwordRequired){
+    const validation = validateFunc(user.email,user.password)
+    if(!validation.emailError &&!validation.passwordError){
 
          try{
             setIsLoading(true);

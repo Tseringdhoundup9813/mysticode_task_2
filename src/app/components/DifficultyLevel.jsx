@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
+// custom tools
 import { difficultyLevel } from '../../utils/constants'
+// redux toolkit
 import { useDispatch,useSelector} from 'react-redux';
-import { difficultyLevelFunc } from '../features/gamelogicSlice';
+import { difficultyLevelFunc } from '../features/gameLogicSlice';
 
 
 function DifficultyLevel() {
   const dispatch = useDispatch();
-  const[difLevel,setDifLevel] = useState();
   const gameState = useSelector((state)=>state.gameLogic)
 
 

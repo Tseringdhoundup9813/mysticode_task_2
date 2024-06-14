@@ -1,58 +1,56 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { generateBoxs } from "../../utils/generateBoxs";
-import { generateRandomNumber } from "../../utils/generateRandom";
-import { getFromLocalStorage, setToLocalStorage } from "../../utils/localstorage";
-import { selectLimit } from "../../utils/constants";
+// custom tools
+import { generateBoxes,generateRandomNumber } from "../../utils/boxFeatures";
+import { getFromLocalStorage, setToLocalStorage } from "../../utils/localStorage";
+// constant variable
+import { selectLimit,pointCriteria} from "../../utils/constants";
 
 
 const initialState={
-   boxlist:generateBoxs(),
+   boxes_list:generateBoxes(),
    selectCount:selectLimit,
-   computerSelectedlist:[],
-   playerSelectedBoxs:[],
+   playerSelectedBoxes:[],
+   computerSelected_list:[],
    matchCount:0,
    difficultyLevel:{name:'low',box:3,points:2},
    balance:getFromLocalStorage('balance'),
    bet:1,
    win:false,
    loose:false,
-   countAnimate:0,
-   
+   selectMaxReach:false,
 
 }
 
-const gamelogicSlice = createSlice({
+const gameLogicSlice = createSlice({
     name:'gameLogic',
     initialState,
     reducers:{
 
-        // initial boxs when game start
+        // initial boxes when game start
         gameInitializeFunc:function(state){
-            // setToLocalStorage('boxlist',generateBoxs())
-            // setToLocalStorage('balance',50);
-            state.boxlist = generateBoxs();
+            state.boxes_list = generateBoxes();
             state.selectCount= selectLimit;
             state.matchCount = 0;
             state.balance = getFromLocalStorage('balance');
         },
         // restart game
-        restartFunc:function(state){
-            setToLocalStorage('boxlist',generateBoxs())
-            setToLocalStorage('balance',50);
-            state.boxlist = generateBoxs('boxlist');
-            state.selectCount= selectLimit;
-            state.playerSelectedBoxs=[];
-            state.matchCount = 0;
-            setToLocalStorage('win',false);
-            setToLocalStorage('loose',false);
-            
+        restartFunc:function(state){    
+            state.computerSelected_list.map((item)=>{
+                state.boxes_list[item.row][item.column].computerSelect = false;
+                state.boxes_list[item.row][item.column].match = false;
+            })
             state.win=false;
             state.loose=false;
+            state.matchCount=0;
+
           
         },
-        // when click start button run this func
+
+
+        // when player click "start button", run this func
+        // initialize bet amount
         startFunc:function(state,action){
-             if(state.balance < 1)return
+             if(state.balance < pointCriteria.min)return
              state.bet = action.payload.bet
         },
 
@@ -63,42 +61,56 @@ const gamelogicSlice = createSlice({
         // select box when user click on box
         // set box revel to true if match
         selectBoxFunc:function(state,action){
+            if(state.win||state.loose)return;
+            state.selectMaxReach=true;
+            state.selectCount
+            let boxes = state.boxes_list;
+            const playerSelectBox = boxes[action.payload.column][action.payload.row];
             // check first player has selected the box 
-            if(!state.playerSelectedBoxs.includes(action.payload.id)){
-                let boxs = state.boxlist;
-                const playerSelectBox = boxs[action.payload.column][action.payload.row];
+            if(!state.playerSelectedBoxes.includes(action.payload.id)&&state.selectCount>0){
                 playerSelectBox.revel = true;
-                state.playerSelectedBoxs.push(playerSelectBox.id)
-                setToLocalStorage('boxlist',boxs)
-                state.boxlist = getFromLocalStorage('boxlist')
+                state.playerSelectedBoxes.push(playerSelectBox.id)
                 state.selectCount -=1;
+                state.selectMaxReach=false;
+                
+            }else if(state.playerSelectedBoxes.includes(action.payload.id)){
+                state.selectMaxReach=false;
+                state.selectCount +=1;
+                playerSelectBox.revel = false;
+                const deselect_list = state.playerSelectedBoxes.filter((item)=>{
+                    return item !==action.payload.id;
+                })
+                state.playerSelectedBoxes = deselect_list;
+       
+    
             }
         },
         selectRandomFunc:function(state,action){
           
-            let boxs = state.boxlist;
-            const computerSelectedlist = []
+            let boxes = state.boxes_list;
+            const match_list = [];
             for(var i=0;i<selectLimit+1;i++){
                 const columnRandom = generateRandomNumber().columnRandom
                 const rowRandom = generateRandomNumber().rowRandom
-                // select the random box and store in computerselectbox varaible
-                const computerSelectedBox =boxs[rowRandom][columnRandom]
-                // set computerselect box to true
+                // select the random box and store in computerSelectBox variable
+                const computerSelectedBox =boxes[rowRandom][columnRandom]
+                // set computer_select box to true
                 computerSelectedBox.computerSelect = true;
-                computerSelectedBox.revel=false;
+                state.computerSelected_list.push({row:rowRandom,column:columnRandom})
+                
            
-                // check the boxes that computer select is match to the player selected boxes
-                state.computerSelectedlist.push(computerSelectedBox.id);
-                for(var a=0;a<state.playerSelectedBoxs.length;a++){
-                    if(state.playerSelectedBoxs[a]===computerSelectedBox.id){
-                        state.boxlist[rowRandom][columnRandom].match =true;
+                // check whether, the  computer select boxes is match to the player selected boxes
+                for(var a=0;a<state.playerSelectedBoxes.length;a++){
+                    if(state.playerSelectedBoxes[a]===computerSelectedBox.id &&!match_list.includes(computerSelectedBox.id)){
+                        match_list.push(state.boxes_list[rowRandom][columnRandom].id);
+                        state.boxes_list[rowRandom][columnRandom].match =true;
                         state.matchCount+=1;
                 
                     }}
                 
                 }
-                // set bo
-               state.boxlist = boxs;
+                // set boxes
+               state.boxes_list = boxes;
             
            
             // check win or not
@@ -116,10 +128,10 @@ const gamelogicSlice = createSlice({
             }
 
         },
-        // countdonw animate 
-        animateCountFunc:function(state){
-            state.countAnimate+=1
+        selectReachAnimateFunc(state){
+            state.selectMaxReach=false;
         }
+      
 
     }
 })
@@ -131,6 +143,8 @@ export const {
         difficultyLevelFunc,
         gameInitializeFunc,
         animateCountFunc,
-        restartFunc
-        } = gamelogicSlice.actions;
-export default gamelogicSlice.reducer;
+        restartFunc,
+        selectReachAnimateFunc,
+        
+        } = gameLogicSlice.actions;
+export default gameLogicSlice.reducer;

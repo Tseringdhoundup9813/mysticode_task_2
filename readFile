@@ -1,0 +1,14 @@
+- `validate.js`:
+    Confusing terms. `emailRequired` in validation object means that the email is required. Don't use it as an error confirmation message.--done
+- Proper Directories & Extra Files:
+    Better to create an Auth directory that stores `server.js` and `validate.js` -----done
+    Create a single file instead of two (`generateBoxs.js` and `generateRandom.js`) as both of the functions are used for similar purpose (game) and multiple functions can be exported from a single file.
+- Spelling mistakes:
+    Resolve spelling mistakes on the code. `Boxs`, `generateBoxs.js` etc. Use `code spell checker` extension to track spelling mistakes.
+- Proper code indentations.
+- Separation of imports in different sections according to their purpose along with proper comments.
+    E.g: local components, global components, external plugin for ..., Css Styles, React Components.
+- Remove unused State variables.
+- De-select selected box if the box is already selected --done
+- Upon "Play Again", only remove computer generated numbers and keep player selected number as it is.
+- Reuse `validation` variable instead of calling `loginValidate` multiple times.

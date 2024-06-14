@@ -1,4 +1,4 @@
-import data from "../../public/data/users.json"
+import data from "../../../public/data/users.json"
 const timer = 3000;
 export function loginServer(email,password){
     return new Promise((resolve,reject)=>{
