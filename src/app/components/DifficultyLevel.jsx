@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { difficultyLevel } from '../../utils/constants'
 // redux toolkit
 import { useDispatch,useSelector} from 'react-redux';
-import { difficultyLevelFunc } from '../features/gameLogicSlice';
+import { difficultyLevelFunc } from '../../features/gameLogicSlice';
 
 
 function DifficultyLevel() {
@@ -30,8 +30,8 @@ function DifficultyLevel() {
         <div>
           <ul>
             <li>difficulty level {gameState.difficultyLevel.name}</li>
-            <li>to win must match {gameState.difficultyLevel.box} boxs</li>
-            <li>if you won you will recive {gameState.difficultyLevel.points}x times </li>
+            <li>to win must match {gameState.difficultyLevel.box} boxes</li>
+            <li>if you won you will receive {gameState.difficultyLevel.points}x times </li>
           </ul>
     
 

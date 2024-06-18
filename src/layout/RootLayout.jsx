@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { Outlet,NavLink} from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 // custom tools
-import { getFromLocalStorage } from '../../utils/localStorage'
+import { getFromLocalStorage } from '../utils/localStorage'
 // components
-import Navbar from '../components/Navbar'
+import Navbar from '../app/components/Navbar'
 
 function RootLayout() {
   const navigate = useNavigate();

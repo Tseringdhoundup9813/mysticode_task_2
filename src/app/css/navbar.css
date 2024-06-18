@@ -1,14 +1,15 @@
 
 .navbar-main-container{
-    padding:20px;
-    min-height:20vh;
+    width:100%;
+    padding:12px 20px;
+    min-height:10vh;
 
 
 }
 .navbar-main-container > ul{
     width:100%;
     display: flex;
-    justify-content:center;
+    justify-content:flex-end;
     align-items: center;
     gap:20px;
 }
@@ -28,18 +29,9 @@
      margin-right:5px;
      color: rgb(100, 100, 100) !important;
 
-
 }
 
-.start-game-button{
-    background-color:rgb(91, 207, 97) !important;
-    color:white !important;
-    cursor: pointer;
-}
-.start-game-button:hover{
-    background-color:rgb(51, 177, 58) !important;
 
-}
 .logout-button{
     background-color: tomato !important;
     cursor: pointer;
@@ -53,11 +45,7 @@
     color:white !important;
     text-decoration: none;
 }
-.highlight-start-button{
-    transition:all 0.4s ease-out;
-    background-color:rgb(20, 255, 20) !important;
 
-}
 
 
 /* selection reach max warn */

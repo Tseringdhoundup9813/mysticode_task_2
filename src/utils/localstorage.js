@@ -1,7 +1,6 @@
 
 
 export function setToLocalStorage(name,data){
-
     localStorage.setItem(name,JSON.stringify(data));
 }
 

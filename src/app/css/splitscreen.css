@@ -1,0 +1,19 @@
+
+.splitscreen-main-wrapper{
+    width:50%;
+    margin:auto;
+    /* border:1px solid red; */
+
+}
+
+.stats-main-wrapper{
+    height:10vh;
+}
+.message-main-wrapper{
+    min-height:5vh;
+
+}
+.game-play-area-main-wrapper{
+    height:60vh;
+
+}

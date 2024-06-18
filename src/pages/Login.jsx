@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 // global login page css
-import "../css/login.css"
+import "../app/css/login.css"
 
 // auth
-import { validateFunc } from '../../utils/auth/validate.js';
-import { loginServer } from '../../utils/auth/server.js';
+import { validateFunc } from '../utils/auth/validate.js';
+import { loginServer } from '../utils/auth/server.js';
 // react router
 import { useNavigate } from 'react-router-dom';
 
 // custom tools
 import { gameInitializeFunc } from '../features/gameLogicSlice.js';
 import { useDispatch } from 'react-redux';
-import { setToLocalStorage } from '../../utils/localStorage.js';
+import { setToLocalStorage } from '../utils/localStorage.js';
 
 
 function Login() {
@@ -24,35 +24,35 @@ function Login() {
     const[isSuccess,setIsSuccess] = useState(false);
 
     async function submitHandler(event){
-    event.preventDefault();
-    // set validation object
-    setValidate(validateFunc(user.email,user.password))
-    setError();
-    // get validation object
-    const validation = validateFunc(user.email,user.password)
-    if(!validation.emailError &&!validation.passwordError){
+        event.preventDefault();
+        // set validation object
+        setValidate(validateFunc(user.email,user.password))
+        setError();
+        // get validation object
+        const validation = validateFunc(user.email,user.password)
+        if(!validation.emailError &&!validation.passwordError){
 
-         try{
-            setIsLoading(true);
-            const res = await loginServer(user.email,user.password);
-            const data = res.data;
-            setToLocalStorage('user',{email:data.email,username:data.username})
+            try{
+                setIsLoading(true);
+                const res = await loginServer(user.email,user.password);
+                const data = res.data;
+                setToLocalStorage('user',{email:data.email,username:data.username})
+                setIsLoading(false);
+                setIsSuccess(true);
+                setUser({email:'',password:''})
+                // game 
+                // initialize game 
+                dispatch(gameInitializeFunc())
+                navigate('/home')
+
+            }catch(err){
+
+            setError(err.message);
             setIsLoading(false);
-            setIsSuccess(true);
-            setUser({email:'',password:''})
-            // game 
-            // initialize game 
-            dispatch(gameInitializeFunc())
-            navigate('/home')
+            setIsSuccess(false);
 
-        }catch(err){
-
-         setError(err.message);
-         setIsLoading(false);
-         setIsSuccess(false);
-
+            }
         }
-    }
    
   }
 

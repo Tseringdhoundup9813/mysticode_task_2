@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 // custom tools
-import { generateBoxes,generateRandomNumber } from "../../utils/boxFeatures";
-import { getFromLocalStorage, setToLocalStorage } from "../../utils/localStorage";
+import { generateBoxes,generateRandomNumber } from "../utils/boxFeatures";
+import { getFromLocalStorage, setToLocalStorage } from "../utils/localStorage";
 // constant variable
-import { selectLimit,pointCriteria} from "../../utils/constants";
+import { selectLimit,pointCriteria} from "../utils/constants";
 
 
 const initialState={
@@ -18,6 +18,7 @@ const initialState={
    win:false,
    loose:false,
    selectMaxReach:false,
+   isModel:false,
 
 }
 
@@ -34,7 +35,7 @@ const gameLogicSlice = createSlice({
             state.balance = getFromLocalStorage('balance');
         },
         // restart game
-        restartFunc:function(state){    
+        restartFunc:function(state){ 
             state.computerSelected_list.map((item)=>{
                 state.boxes_list[item.row][item.column].computerSelect = false;
                 state.boxes_list[item.row][item.column].match = false;
@@ -128,14 +129,16 @@ const gameLogicSlice = createSlice({
             }
 
         },
-        selectReachAnimateFunc(state){
+        selectReachAnimateFunc:function(state){
             state.selectMaxReach=false;
+        },
+        modelIsActiveFunc:function(state){
+            state.isModel=!state.isModel
         }
       
 
     }
 })
-
 export const {
         startFunc,
         selectBoxFunc,
@@ -145,6 +148,7 @@ export const {
         animateCountFunc,
         restartFunc,
         selectReachAnimateFunc,
+        modelIsActiveFunc
         
         } = gameLogicSlice.actions;
 export default gameLogicSlice.reducer;
