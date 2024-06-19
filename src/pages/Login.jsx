@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
+
 // global login page css
 import "../app/css/login.css"
 
+// provider
+import { AuthContext } from '../context/AuthContext.jsx';
 // auth
 import { validateFunc } from '../utils/auth/validate.js';
 import { loginServer } from '../utils/auth/server.js';
@@ -11,18 +14,20 @@ import { useNavigate } from 'react-router-dom';
 // custom tools
 import { gameInitializeFunc } from '../features/gameLogicSlice.js';
 import { useDispatch } from 'react-redux';
-import { setToLocalStorage } from '../utils/localStorage.js';
+
 
 
 function Login() {
-    const navigate = useNavigate();
+    const authContext = useContext(AuthContext);
     const dispatch = useDispatch();
     const[user,setUser] = useState({email:'',password:''})
     const[validate,setValidate] = useState()
     const [isLoading,setIsLoading] = useState(false);
     const[error,setError] = useState();
     const[isSuccess,setIsSuccess] = useState(false);
+    
 
+    
     async function submitHandler(event){
         event.preventDefault();
         // set validation object
@@ -36,20 +41,20 @@ function Login() {
                 setIsLoading(true);
                 const res = await loginServer(user.email,user.password);
                 const data = res.data;
-                setToLocalStorage('user',{email:data.email,username:data.username})
+                // save user information handler  auth_context
+                authContext.dispatch({type:'login',payload:{user:data}})
                 setIsLoading(false);
                 setIsSuccess(true);
-                setUser({email:'',password:''})
-                // game 
                 // initialize game 
                 dispatch(gameInitializeFunc())
-                navigate('/home')
+
 
             }catch(err){
 
             setError(err.message);
             setIsLoading(false);
             setIsSuccess(false);
+            console.log(err);
 
             }
         }
