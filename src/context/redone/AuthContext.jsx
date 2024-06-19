@@ -65,7 +65,7 @@ export default AuthProvider;
 
 // Use in Login.jsx
 function Login() {
-    const { user, isAuthenticated, login } = useContext(AuthContext);
+    const { user, isLoggedIn, login } = useContext(AuthContext);
     const dispatch = useDispatch();
 
     const[validate,setValidate] = useState()
